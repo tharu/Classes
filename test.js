@@ -75,6 +75,24 @@ describe('Withdraw Tests', () => {
           assert.throws(account1.deposit(0), RangeError,"Withdraw amount has to be greater than zero"); 
         });
     });
+
+    describe("test Checking account withdraw- amount with in overdraft limit", function(){
+        it("test withdraw checking account ", function(){
+          checkingAccount1.deposit(200);//over draft 200
+          checkingAccount1.withdraw(300);
+          assert.equal(checkingAccount1.getBalance(),-100); 
+        });
+    });
+
+    describe("test Checking account withdraw- amount exceeds overdraft limit", function(){
+        it("test withdraw checking account - amount > overdraft limit ", function(){
+          account1._balance=0;
+          account1.deposit(200);//over draft 200
+          assert.throws(account1.withdraw(500), Error,"Insufficient funds"); 
+        });
+    });
+
+
 });
 
     describe("test endOfMonth()", function(){
@@ -102,22 +120,7 @@ describe('Withdraw Tests', () => {
     });
 
 
-    describe("test Checking account withdraw- amount with in overdraft limit", function(){
-        it("test withdraw checking account ", function(){
-          checkingAccount1.deposit(200);//over draft 200
-          checkingAccount1.withdraw(300);
-          assert.equal(checkingAccount1.getBalance(),-100); 
-        });
-    });
-
-    describe("test Checking account withdraw- amount exceeds overdraft limit", function(){
-        it("test withdraw checking account - amount > overdraft limit ", function(){
-          account1._balance=0;
-          account1.deposit(200);//over draft 200
-          assert.throws(account1.withdraw(500), Error,"Insufficient funds"); 
-        });
-    });
-
+    
     describe("test Checking account toString()", function(){
         it("test toString()", function(){
         checkingAccount1._balance=0;
