@@ -135,7 +135,7 @@ describe('Withdraw Tests', () => {
 
         let bank;
         beforeEach(() => {
-            bank = new Bank()
+            bank = new Bank();
         });
         describe('Account Actions', () => {
     
